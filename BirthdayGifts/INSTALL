@@ -1,0 +1,37 @@
+REQUIREMENTS
+------------
+
+Applications:
+	- Tomcat 5.5 or above (http://tomcat.apache.org) - needed for running the application
+	- JDK 1.6.0 or above (http://java.sun.com) - needed for building the application
+	- Ant 1.6 or above (http://ant.apache.org) - needed for building the application
+	
+Environment Variables:
+	- JAVA_HOME - must point to the JDK directory
+	- ANT_HOME - must point to the Ant directory
+	
+
+BUILDING
+--------
+
+Important!
+Edit the build.properties file before deploying to Tomcat server.
+
+Make sure the /bin directory of Ant is included in PATH environment variable.
+To deploy to the tomcat server with compiling sources and running tests (default), type
+	ant
+
+To deploy to the tomcat container without running tests, type:
+	ant install
+
+To build source files, type:
+	ant compile
+
+To run tests, type:
+	ant junit
+
+To clean build files, type:
+	ant clean
+
+To list available ant targets, type:
+	ant -projecthelp

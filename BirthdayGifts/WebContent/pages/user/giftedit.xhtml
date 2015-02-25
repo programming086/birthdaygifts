@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+	  xmlns:rich="http://richfaces.org/rich"
+	  xmlns:ts="http://birthdaygifts.yet.cn.ua"
+      xmlns:c="http://java.sun.com/jstl/core">
+
+<ui:composition template="/templates/regUser.xhtml">
+
+	<ui:define name="pageHeader">
+		<h:outputText rendered="#{giftBean.gift.id != null}">
+			#{msg['pages.user.giftedit.header.edit']} '#{giftBean.gift.name}'
+		</h:outputText>
+		<h:outputText rendered="#{giftBean.gift.id == null}">
+			#{msg['pages.user.giftedit.header.add']}
+		</h:outputText>
+	</ui:define>
+
+	<ui:define name="body">
+		<table cellspacing="4px" width="100%">
+		<tr><td valign="top">
+			<h:form>
+				<h:panelGrid columns="3" columnClasses="colTitles, colRequired, colValues" cellspacing="10px">
+					
+					<h:outputLabel value="#{msg['pages.user.giftlist.table.Name']}" 
+						for="idInputName" accesskey="N"/>
+					<h:outputText value="*" />
+					<a4j:outputPanel styleClass="width-full">
+						<h:inputText value="#{giftBean.gift.name}" id="idInputName"
+							required="true" style="width:50%" accesskey="N"/>
+						<rich:message for="idInputName" 
+							styleClass="error_message"
+							style="margin-left:8px;"
+							showSummary="false" />
+					</a4j:outputPanel>
+			
+					<h:outputLabel value="#{msg['pages.user.giftlist.table.URL']}" 
+						for="idInputUrl" accesskey="U"/>
+					<h:outputText value="" />
+					<a4j:outputPanel>
+						<h:inputText value="#{giftBean.gift.url}" 
+							id="idInputUrl" accesskey="U"
+							style="width:50%"/>
+						<h:graphicImage value="/i/help.png" 
+							style="margin-left:8px;cursor: help" id="idUrlHelp">
+							<rich:toolTip for="idUrlHelp" direction="top-left">
+								<span style="white-space:nowrap; font-size:14px; font-family:Courier; font-weight: normal">
+									#{msg['pages.user.giftedit.table.URL.help.1']}<br/>
+									#{msg['pages.user.giftedit.table.URL.help.2']}<br/> 
+									#{msg['pages.user.giftedit.table.URL.help.3']}<br/>
+									#{msg['pages.user.giftedit.table.URL.help.4']}<br/>
+					            </span>
+							</rich:toolTip>
+						</h:graphicImage>
+					</a4j:outputPanel>
+					                        
+                    <h:outputLabel value="#{msg['pages.user.giftlist.table.Image']} #{msg['pages.user.giftlist.table.URL']}" 
+                    	for="idInputImage" accesskey="I"/>
+                    <h:outputText value="" />
+					<h:inputText id="idInputImage"
+						value="#{giftBean.gift.imgUrl}"
+						accesskey="I"
+						style="width:100%">
+						<a4j:support event="onblur" reRender="idGiftImg"
+							ignoreDupResponses="true" limitToList="true"
+							ajaxSingle="true" />
+					</h:inputText>
+						
+					<h:outputLabel value="#{msg['pages.user.giftlist.table.Description']}" for="idInputDescr" accesskey="D"/>
+					<h:outputText value="" />
+					<h:inputTextarea id="idInputDescr"
+						value="#{giftBean.gift.description}"
+						accesskey="D"
+						cols="10"
+						rows="10" />
+				</h:panelGrid>
+				<rich:separator height="1" width="100%"/>
+				<p style="margin-left:140px;">
+					<h:commandButton style="width:100px;" 
+						value="#{msg['pages.user.giftedit.btn.Save']}" action="#{giftBean.doAddGift}"
+						rendered="#{giftBean.gift.id == null}"/>
+					<h:commandButton style="width:100px;" 
+						value="#{msg['pages.user.giftedit.btn.Update']}" action="#{giftBean.doUpdateGift}"
+						rendered="#{giftBean.gift.id != null}"/>
+					<rich:spacer width="8px" />
+					<h:commandButton style="width:100px;" 
+						value="#{msg['pages.user.giftedit.btn.Cancel']}" action="listGifts" immediate="true"/>
+				</p>
+			</h:form>
+		</td>
+		<td valign="top" align="right">
+			<a4j:outputPanel id="idGiftImg">
+				<h:graphicImage value="#{giftBean.gift.imgUrl}"
+					alt="#{msg['pages.user.giftedit.NoGiftImageMessage']}"
+					rendered="#{not empty giftBean.gift.imgUrl}" />
+			</a4j:outputPanel>
+		</td>
+		</tr></table>
+	</ui:define>
+</ui:composition>
+</html>

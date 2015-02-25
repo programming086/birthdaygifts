@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:ts="http://birthdaygifts.yet.cn.ua"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+<head>
+<title><ui:insert name="pageTitle">#{msg['template.common.title']}</ui:insert></title>
+
+<link rel="icon" type="image/gif" href="/birthday/i/favicon.gif" />
+
+<link href="/birthday/css/styles.css" rel="stylesheet" type="text/css" />
+<link href="/birthday/js/my_cropper.css" rel="stylesheet" type="text/css" />
+<!-- <script src="/birthday/js/prototype.js" type="text/javascript"></script>-->
+<script src="/birthday/js/builder.js" type="text/javascript"></script>
+<script src="/birthday/js/dragdrop.js" type="text/javascript"></script>
+<script src="/birthday/js/my_cropper.js" type="text/javascript"></script>
+<script src="/birthday/js/tiny_mce/tiny_mce.js" type="text/javascript"></script>
+<script src="/birthday/js/routine.js" type="text/javascript"></script>
+<script src="/birthday/js/swfobject.js" type="text/javascript"></script>
+<script src="/birthday/js/swfobject.js" type="text/javascript"></script>
+
+</head>
+
+<a4j:loadBundle var="msg" basename="resources" />
+
+<body bgcolor="#ffffff">
+<h2 align="center">#{msg['template.common.title']}</h2>
+<table style="border: 1px solid #CAD6E0; font-size: 14px;"
+	align="center" cellpadding="5" cellspacing="0" border="0" width="90%">
+	<tbody>
+
+		<tr bgcolor="#E4EBEB" height="42">		
+			<td class="header td_main_header" align="center" valign="middle"
+				width="85%">
+					<ui:insert name="pageHeader">Page Header</ui:insert>
+			</td>
+			<td width="15%">
+				<ui:insert name="loginForm">	
+					<h:form class="login_form" rendered="#{empty userBean.id}">
+						<div>
+							<h:outputLabel for="inputLogin" accesskey="L">#{msg['template.common.login']}</h:outputLabel><br/>
+							<h:inputText id="inputLogin" value="#{loginBean.login}" 
+								style="font-size:12px;" required="true"/><br/>
+							<rich:message for="inputLogin" errorClass="error_message" />
+						</div>
+						<div>
+							<h:outputLabel for="inputPassword" accesskey="P">#{msg['template.common.password']}</h:outputLabel><br/>
+							<h:inputSecret id="inputPassword" value="#{loginBean.password}" 
+								style="font-size:12px;" redisplay="false" required="true"/><br/>
+							<rich:message for="inputPassword" errorClass="error_message" />
+						</div>
+						<h:commandButton value="#{msg['template.common.btn.Login']}" action="#{loginBean.doLogin}" style="font-size:12px;"/>
+					</h:form>
+					
+					<a4j:outputPanel rendered="#{not empty userBean.id}">
+						<div class="logged_form">
+							<p>#{msg['template.common.hello']}<b>#{userBean.login}</b></p>
+							<h:form ajaxSubmit="false">
+								<p><h:commandLink value="#{msg['template.common.link.Logout']}" action="#{loginBean.doLogout}"/></p>
+								<p><h:commandLink value="#{msg['template.common.link.EditProfile']}" action="profile"/></p>
+							</h:form>
+						</div>
+					</a4j:outputPanel>
+				</ui:insert>
+			</td>
+		</tr>
+		<!-- <tr>
+			<td height="1" width="100%" bgcolor="#CAD6E0" colspan="3"></td>
+		</tr>
+		 -->
+		<tr>
+			<td width="100%" bgcolor="#CAD6E0" colspan="3" align="center">
+				<rich:messages globalOnly="true"
+							errorLabelClass="error_message"
+							infoLabelClass="info_message"
+							warnLabelClass="warn_message" 
+							errorMarkerClass="png_fix"
+							infoMarkerClass="png_fix"
+							warnMarkerClass="png_fix"
+							layout="table"
+							showDetail="true" showSummary="true" var="messages"
+							ajaxRendered="true">
+							<f:facet name="errorMarker">
+								<h:graphicImage url="/i/error.png" />
+							</f:facet>
+							<f:facet name="infoMarker">
+								<h:graphicImage url="/i/info.png" />
+							</f:facet>
+							<f:facet name="warnMarker">
+								<h:graphicImage url="/i/warn.png" />
+							</f:facet>							
+						</rich:messages>
+			</td>
+		</tr>
+
+		<tr><td width="100%" colspan="3" align="center" valign="top">
+			<table width="100%" border="0" cellspacing="8px">
+				<tr>			
+					<td width="15%" class="td_menu" valign="top">
+						<a4j:outputPanel>
+							<h:form>
+								<a4j:outputPanel rendered="#{not empty userBean.id}">
+									<ui:insert name="links">
+									</ui:insert>
+								</a4j:outputPanel>
+								<rich:separator width="90%" lineType="solid" height="1px"
+									rendered="#{not empty userBean.id}"/>
+								<p>
+									<h:commandLink action="home" value="#{msg['template.common.link.Home']}" 
+										rendered="#{empty userBean.id}"/>
+									<h:commandLink action="homeUser" value="#{msg['template.common.link.Home']}" 
+										rendered="#{not empty userBean.id}"/>
+								</p>
+								<rich:separator width="90%" lineType="solid" height="1px"
+									rendered="#{not empty userBean.id}"/>
+								<a4j:outputPanel rendered="#{not empty userBean.id}">
+									<ui:insert name="vips">
+									</ui:insert>
+								</a4j:outputPanel>
+							</h:form>
+						</a4j:outputPanel>
+						<p>
+							<a4j:status>
+								<f:facet name="start">
+									<h:graphicImage value="/i/loading.gif" />
+								</f:facet>
+							</a4j:status>
+						</p>
+					</td>					
+					<td width="100%" colspan="2" valign="top">
+						<ui:insert name="body">
+							Body
+						</ui:insert>
+					</td>
+				</tr>
+			</table>
+		</td></tr>
+
+		<tr>
+			<td colspan="3" valign="bottom" height="1" width="100%"
+				bgcolor="#CAD6E0" align="center"><small>(c) Yuriy Tkach, 2009</small></td>
+		</tr>
+	</tbody>
+</table>
+</body>
+
+</html>

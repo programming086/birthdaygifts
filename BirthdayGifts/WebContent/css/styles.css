@@ -1,0 +1,236 @@
+body,body1,body2,body3 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+}
+
+.dr-pnl-h, .dr-pnl-b, 
+.dr-table-cell, .dr-table-headercell, .dr-table-subheadercell, 
+input, textarea, button, keygen, isindex, legend, a,
+textarea[type="textarea"], input[type="text"], input[type="password"], select,
+button[type="button"], button[type="reset"], button[type="submit"], 
+input[type="reset"], input[type="submit"], input[type="button"],
+body, td, pre  {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+}
+
+h3 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	margin-top: 4px;
+	margin-bottom: 0px;
+}
+
+.header {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 18px;
+}
+
+.bottom {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	text-align: center;
+	vertical-align: middle;
+	color: #8E969D;
+}
+
+
+.title_text {
+	font-family: "Courier New", Courier, monospace;
+	font-size: x-large;
+	font-weight: bold;
+	text-align: center;
+	vertical-align: middle;
+	white-space: normal;
+	padding: 5px;
+}
+
+.image_link {
+	color: #FFFFFF;
+	border: 1px solid #FFFFFF;
+	padding: 0px;
+	text-decoration: none;
+}
+
+.image_link:hover {
+	color: #FFFFFF;
+	border: 1px solid #FFFFFF;
+	padding: 0px;
+	text-decoration: none;
+}
+
+a {
+	color: #0000FF;
+	text-decoration: none;
+	padding-right: 1px;
+	padding-left: 1px;
+	border: 1px solid;
+	border-color: transparent;
+}
+
+a:hover {
+	color: #0000FF;
+	background-color: #C3D9FF;
+	border: 1px solid #7799BB;
+	padding-right: 1px;
+	padding-left: 1px;
+}
+.image_link {
+	color: #FFFFFF;
+	border: 1px solid #FFFFFF;
+	padding: 0px;
+	text-decoration: none;
+}
+.image_link:hover {
+	color: #FFFFFF;
+	border: 1px solid #FFFFFF;
+	padding: 0px;
+	text-decoration: none;
+}
+
+.td_menu {
+	text-align: center;
+	border-right-width: 1px;
+	border-right-style: dotted;
+	border-right-color: #666666;
+	padding: 0px;
+	margin: 0px;
+}
+
+.login_form {
+	font-size: 10px;
+}
+
+.menu_link {
+	white-space: nowrap;
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
+
+.page_name {
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	color: #000000;
+	background-color: #C3D9FF;
+	padding: 3px;
+}
+
+.credentials {
+	text-align: center;
+	color: #000000;
+	padding: 2px;
+}
+
+.menu_list {
+	list-style-type: circle;
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
+
+.td_menu {
+	text-align: center;
+	border-right-width: 1px;
+	border-right-style: solid;
+	border-right-color: #cad6e0;
+	padding: 0px;
+	margin: 0px;
+	vertical-align: top;
+}
+
+.error_message {
+	color: maroon;
+	font-weight: bold;
+}
+
+.info_message {
+	color: navy;
+	font-weight: bold;
+}
+
+.warn_message {
+	color: olive;
+	font-weight: bold;
+}
+
+.standardTable_Row1 {
+	background-color: #ECF3FE;
+}
+
+.standardTable_Row2 { /*background-color: #FCFFFE;*/
+	background-color: transparent;
+}
+.cols_edit_users {
+	width: 10%;
+}
+.cols_edit_bday {
+	width: 150px;
+}
+.rows_edit_users {
+	vertical-align: top;
+}
+.required_message {
+	color: maroon;
+	font-weight: bold;
+}
+.desc_font {
+	font-size: 150%;
+}
+
+.logged_form {
+	font-size: 12px;
+}
+.logged_form a{
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.colTitles {
+	text-align: right;
+	color: navy;
+	width:100px;
+	vertical-align: top;
+}
+
+.colValues {
+	font-weight: bold;
+}
+
+.colRequired {
+	width: 10px;
+	font-weight: bold;
+	color:maroon;
+}
+
+.calendarInputUser {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size:14px;
+	font-weight: bold;
+}
+.calendarButtonAdmin {
+	position: absolute;
+}
+.calendarInputAdmin {
+	width:100px;
+}
+.gift_title {
+	font-size: 16px;
+	font-weight: bold;
+}
+.user_gift_title {
+	font-size: 18px;
+	font-weight: bold;
+}
+li {
+	list-style-image:url(/birthday/i/bullet_arrow.gif);
+	list-style-position:outside;
+	list-style-type:disc;
+}
+li {
+	margin-bottom:5px;
+	margin-left:-12px;
+	margin-top:5px;
+}
+.td_main_header {
+		background: url('/birthday/i/logo.gif') no-repeat
+}

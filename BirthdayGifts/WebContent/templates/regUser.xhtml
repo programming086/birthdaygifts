@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+	  xmlns:rich="http://richfaces.org/rich"
+	  xmlns:ts="http://birthdaygifts.yet.cn.ua"
+      xmlns:c="http://java.sun.com/jstl/core">
+
+<ui:composition template="/templates/common.xhtml">
+
+	<ui:define name="links">
+		<a4j:outputPanel rendered="#{userBean.vip}">
+			<p>
+				<h:commandLink action="listGifts" value="#{msg['template.regUser.link.EditGifts']}"
+					title="#{msg['template.regUser.link.EditGifts.title']}"/>
+			</p>
+			<p>
+				<h:commandLink action="previewGifts" value="#{msg['template.regUser.link.PreviewGifts']}"
+					title="#{msg['template.regUser.link.PreviewGifts.title']}">
+					<f:param name="vipId" value="#{userBean.id}"/>
+				</h:commandLink>
+			</p>
+		</a4j:outputPanel>
+		<p>
+			<h:commandLink action="giftpresented" value="#{msg['template.regUser.link.ViewSelectedGifts']}"
+				title="#{msg['template.regUser.link.ViewSelectedGifts.title']}"/>
+		</p>
+	</ui:define>
+	
+	<ui:define name="vips">
+		<rich:dataList value="#{vipLoaderBean.vipUsers}" var="user"
+			style="text-align:left;">
+			<h:commandLink action="previewGifts" 
+              	title="#{msg['template.regUser.link.GoToUserGiftPage.title']}" immediate="true">
+				<f:param name="vipId" value="#{user.id}"/>
+			 	#{user.fullName}
+			</h:commandLink>
+			<br/>
+			<h:outputText value="#{user.birthDate.time}">
+				<f:convertDateTime pattern="dd MMMM yyyy"/>
+			</h:outputText>
+		</rich:dataList>
+	</ui:define>
+</ui:composition>
+</html>

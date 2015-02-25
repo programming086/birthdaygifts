@@ -1,0 +1,13 @@
+/**
+ * Slovak lang variables 
+ * encoding: utf-8
+ * 
+ * @author Vladimir VASIL vvasil@post.sk
+ *    
+ * $Id: sk.js,v 1.1 2009/09/21 09:51:18 goofball Exp $ 
+ */  
+
+tinyMCE.addToLang('',{
+print_desc : 'Tlač'
+});
+

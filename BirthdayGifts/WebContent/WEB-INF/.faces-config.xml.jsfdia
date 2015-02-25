@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#pages#welcome.xhtml"
+  PATH="/pages/welcome.xhtml" SHAPE="256,64,50,41" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#welcome.xhtml:0" NAME="item"
+   PATH="/pages/welcome.xhtml" model-entity="JSFProcessItem"/>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#admin#welcome.xhtml"
+  PATH="/pages/admin/welcome.xhtml" SHAPE="136,264,50,25"
+  model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="24,80,53,90" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="home::#pages#welcome.xhtml" NAME="output"
+    PATH="/pages/welcome.xhtml" TARGET="rules:#pages#welcome.xhtml"
+    TITLE="home" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="previewGifts::#pages#user#giftpreview.xhtml"
+    NAME="output1" PATH="/pages/user/giftpreview.xhtml"
+    TARGET="rules:#pages#user#giftpreview.xhtml" TITLE="previewGifts" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="regUser::#pages#user#welcome.xhtml"
+    NAME="output2" PATH="/pages/user/welcome.xhtml"
+    TARGET="rules:#pages#user#welcome.xhtml" TITLE="regUser" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="admin::#pages#admin#welcome.xhtml"
+    NAME="output3" PATH="/pages/admin/welcome.xhtml"
+    TARGET="rules:#pages#admin#welcome.xhtml" TITLE="admin" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="singInToPresent::#pages#singInToPresent.xhtml" NAME="output4"
+    PATH="/pages/singInToPresent.xhtml"
+    TARGET="rules:#pages#singInToPresent.xhtml" TITLE="singInToPresent" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#user#welcome.xhtml"
+  PATH="/pages/user/welcome.xhtml" SHAPE="296,216,50,25" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#user#profile.xhtml"
+  PATH="/pages/user/profile.xhtml" SHAPE="368,320,50,25"
+  model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#pages#user#*" PATH="/pages/user/*"
+  SHAPE="168,384,53,90" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#user#*:0" NAME="item"
+   PATH="/pages/user/*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="homeUser::#pages#user#welcome.xhtml"
+    NAME="output2" PATH="/pages/user/welcome.xhtml"
+    TARGET="rules:#pages#user#welcome.xhtml" TITLE="homeUser" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="profile::#pages#user#profile.xhtml"
+    NAME="output" PATH="/pages/user/profile.xhtml"
+    TARGET="rules:#pages#user#profile.xhtml" TITLE="profile" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="listGifts::#pages#user#giftlist.xhtml"
+    NAME="output1" PATH="/pages/user/giftlist.xhtml"
+    TARGET="rules:#pages#user#giftlist.xhtml" TITLE="listGifts" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="giftpresented::#pages#user#giftpresented.xhtml" NAME="output3"
+    PATH="/pages/user/giftpresented.xhtml"
+    TARGET="rules:#pages#user#giftpresented.xhtml" TITLE="giftpresented" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#user#giftlist.xhtml"
+  PATH="/pages/user/giftlist.xhtml" SHAPE="376,432,50,41" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#user#giftlist.xhtml:0" NAME="item"
+   PATH="/pages/user/giftlist.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="edit::#pages#user#giftedit.xhtml"
+    NAME="output" PATH="/pages/user/giftedit.xhtml"
+    TARGET="rules:#pages#user#giftedit.xhtml" TITLE="edit" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#user#giftedit.xhtml"
+  PATH="/pages/user/giftedit.xhtml" SHAPE="568,368,50,25" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#user#giftpreview.xhtml"
+  PATH="/pages/user/giftpreview.xhtml" SHAPE="248,144,50,25" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#user#giftpresented.xhtml"
+  PATH="/pages/user/giftpresented.xhtml" SHAPE="368,512,50,25"
+  model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#pages#singInToPresent.xhtml"
+  PATH="/pages/singInToPresent.xhtml" SHAPE="56,328,50,25" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#singInToPresent.xhtml:0" NAME="item"
+   PATH="/pages/singInToPresent.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="regUser::#pages#user#welcome.xhtml"
+    NAME="output" PATH="/pages/user/welcome.xhtml"
+    TARGET="rules:#pages#user#welcome.xhtml" TITLE="regUser" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+</PROCESS>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+	  xmlns:rich="http://richfaces.org/rich"
+	  xmlns:ts="http://birthdaygifts.yet.cn.ua"
+      xmlns:c="http://java.sun.com/jstl/core">
+
+<ui:composition template="/templates/common.xhtml">
+
+	<ui:define name="pageHeader">#{msg['pages.singInToPresent.header']}</ui:define>
+
+	<ui:define name="body">
+		<p>
+			#{msg['pages.singInToPresent.welcomeMessage']}
+		</p>
+		<table width="100%" border="0" cellspacing="8px">
+		<tr>
+			<td valign="top">
+				<h2>#{msg['pages.singInToPresent.singInForm.Header']}</h2>
+				<table border="0"><tr><td>
+					<rich:panel>
+						<h:form>
+							<div>
+								<h:outputLabel for="sf_inputLogin" accesskey="L">#{msg['pages.singInToPresent.singInForm.Login']}</h:outputLabel><br/>
+								<h:inputText id="sf_inputLogin" value="#{loginBean.login}" 
+									required="true"/>
+								<rich:message for="sf_inputLogin" errorClass="error_message" style="margin-left:8px;"/>
+							</div>
+							<div>
+								<h:outputLabel for="sf_inputPassword" accesskey="P">#{msg['pages.singInToPresent.singInForm.Password']}</h:outputLabel><br/>
+								<h:inputSecret id="sf_inputPassword" value="#{loginBean.password}" 
+									redisplay="false" required="true"/>
+								<rich:message for="sf_inputPassword" errorClass="error_message" style="margin-left:8px;"/>
+							</div>
+							<br/>
+							<h:commandButton value="#{msg['pages.singInToPresent.singInForm.btn.Login']}" action="#{loginBean.doLoginAndSelectGift}"/>
+						</h:form>
+					</rich:panel>
+				</td></tr></table>
+			</td>
+			<td valign="top">
+				<h2>#{msg['pages.singInToPresent.regForm.Header']}</h2>
+				<table border="0"><tr><td>
+					<rich:panel>
+						<h:form>
+							<div>
+								<h:outputLabel for="sf_newLogin" accesskey="L">#{msg['pages.singInToPresent.regForm.Login']}</h:outputLabel><br/>
+								<h:inputText id="sf_newLogin" value="#{loginBean.login}" 
+									required="true"/>
+								<h:outputText value="*" styleClass="required_message" />
+								<rich:message for="sf_newLogin" errorClass="error_message" style="margin-left:8px;"/>
+							</div>
+							<div>
+								<h:outputLabel for="sf_newPassword" accesskey="P">#{msg['pages.singInToPresent.regForm.Password']}</h:outputLabel><br/>
+								<h:inputSecret id="sf_newPassword" value="#{loginBean.password}" 
+									redisplay="false" required="true"/>
+								<h:outputText value="*" styleClass="required_message" />
+								<rich:message for="sf_newPassword" errorClass="error_message" style="margin-left:8px;"/>
+							</div>
+							<div>
+								<h:outputLabel for="sf_newRePassword" accesskey="R">#{msg['pages.singInToPresent.regForm.RetypePassword']}</h:outputLabel><br/>
+								<h:inputSecret id="sf_newRePassword" value="#{loginBean.rePassword}" 
+									redisplay="false" required="true"/>
+								<h:outputText value="*" styleClass="required_message" />
+								<rich:message for="sf_newRePassword" errorClass="error_message" style="margin-left:8px;"/>
+							</div>
+							<div>
+								<h:outputLabel for="sf_newEmail" accesskey="P">#{msg['pages.singInToPresent.regForm.Email']}</h:outputLabel><br/>
+								<h:inputText id="sf_newEmail" value="#{loginBean.email}" validator="validate.Email"/>
+								<h:graphicImage value="/i/help.png" 
+									style="margin-left:8px;cursor: help" id="idEmailHelp">
+									<rich:toolTip for="idEmailHelp" direction="top-left">
+										<span style="white-space:nowrap; font-size:14px; font-family:Courier;">
+											#{msg['pages.singInToPresent.regForm.Email.help1']}<br/>
+											#{msg['pages.singInToPresent.regForm.Email.help2']}<br/>
+											#{msg['pages.singInToPresent.regForm.Email.help3.1']}
+												<strong>#{msg['pages.singInToPresent.regForm.Email.help3.2']}</strong>
+												#{msg['pages.singInToPresent.regForm.Email.help3.3']}<br/>
+											#{msg['pages.singInToPresent.regForm.Email.help4.1']}
+												<strong>#{msg['pages.singInToPresent.regForm.Email.help4.2']}</strong><br/>
+											#{msg['pages.singInToPresent.regForm.Email.help5.1']}
+												<strong>#{msg['pages.singInToPresent.regForm.Email.help5.2']}</strong>.
+							            </span>
+									</rich:toolTip>
+								</h:graphicImage>
+								<rich:message for="sf_newEmail" 
+									styleClass="error_message"
+									style="margin-left:8px;"
+									showSummary="true" showDetail="false" />
+							</div>
+							<br/>
+							<h:commandButton value="#{msg['pages.singInToPresent.regForm.btn.Register']}" action="#{loginBean.doRegisterAndSelectGift}"/>
+						</h:form>
+					</rich:panel>
+				</td></tr></table>
+			</td>
+		</tr>
+		</table>		
+	</ui:define>
+</ui:composition>
+</html>

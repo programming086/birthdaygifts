@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+	  xmlns:rich="http://richfaces.org/rich"
+	  xmlns:ts="http://birthdaygifts.yet.cn.ua"
+      xmlns:c="http://java.sun.com/jstl/core">
+
+<ui:composition template="/templates/regUser.xhtml">
+
+	<ui:define name="pageHeader">#{msg['pages.user.giftpresented.header']}</ui:define>
+	
+	<ui:define name="body">
+		<rich:panel style="cursor:help" 
+			rendered="#{not empty presenterGiftsLoader.selectedGifts}">
+			<p>#{msg['pages.user.giftpresented.welcomeMessage.1']}</p>
+			<p>#{msg['pages.user.giftpresented.welcomeMessage.2']}</p>
+		</rich:panel>
+	
+		<rich:panel style="cursor:help" 
+			rendered="#{empty presenterGiftsLoader.selectedGifts}">
+			#{msg['pages.user.giftpresented.nothingSelectedMessage']}
+		</rich:panel>
+		<p></p>
+		<h:form>
+			<a4j:outputPanel id="idGiftList">
+				<rich:dataGrid value="#{presenterGiftsLoader.selectedGifts}"
+					var="entry" columns="1" width="100%">
+					<rich:panel>
+						<f:facet name="header">
+							<h:outputText>
+								#{msg['pages.user.giftpresented.selectedTable.header1']}
+								<span class="user_gift_title">#{entry.key.fullName}</span>
+								#{msg['pages.user.giftpresented.selectedTable.header2']}
+								<span class="user_gift_title">
+									<h:outputText value="#{entry.key.birthDate}" converter="convert.Calendar" />
+								</span>
+							</h:outputText>
+						</f:facet>
+						<rich:dataGrid value="#{entry.value}" 
+							var="gift" columns="1" width="100%">
+							<div>
+			                	<table width="100%" border="0" cellspacing="8">
+			                		<tr>
+			                			<td valign="top" align="center" width="200px">
+			                				<h:graphicImage value="#{gift.imgUrl}" alt="#{msg['pages.user.giftpreview.image.alt.GiftImage']}"
+			                					style="max-width:200px;" rendered="#{not empty gift.imgUrl}"/>
+			                				<h:graphicImage value="/i/present_none.jpg" alt="#{msg['No gift image']}"
+			                					rendered="#{empty gift.imgUrl}"/>
+			                			</td>
+			                			<td valign="top">
+			                				<p class="gift_title">#{gift.name}</p>
+						                	<div>
+						                		<h:outputLink value="#{gift.url}">#{gift.url}</h:outputLink>
+						                	</div>
+						                	<br/>
+			                				<h:outputText value="#{gift.description}" escape="false" />
+			                			</td>
+			                			<td valign="top" align="center" width="100px">
+			                				<h:commandLink action="#{presenterGiftsLoader.doDiscardGift}" 
+												immediate="true"
+												styleClass="image_link">
+												<f:param name="giftId" value="#{gift.id}"/>
+												
+												<h:graphicImage value="/i/present_discard.jpg" width="75%"/>
+											</h:commandLink><br/>
+			                				<h:commandLink action="#{presenterGiftsLoader.doDiscardGift}" 
+			                					value="#{msg['pages.user.giftpresented.bnt.DiscardIt']}"
+			                					immediate="true">
+			                					<f:param name="giftId" value="#{gift.id}"/>
+			                				</h:commandLink>
+			                			</td>
+			                		</tr>
+			                	</table>
+			                </div>
+			             </rich:dataGrid>
+		             </rich:panel>
+	             </rich:dataGrid>
+			</a4j:outputPanel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

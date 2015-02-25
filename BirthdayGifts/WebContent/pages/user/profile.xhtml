@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+	  xmlns:rich="http://richfaces.org/rich"
+	  xmlns:ts="http://birthdaygifts.yet.cn.ua"
+      xmlns:c="http://java.sun.com/jstl/core">
+
+<ui:composition template="/templates/regUser.xhtml">
+
+	<ui:define name="pageHeader">#{msg['pages.user.profile.header']}</ui:define>
+
+	<ui:define name="body">
+		<table cellspacing="4px" width="100%">
+		<tr><td valign="top">
+			<a4j:form>
+				<h3>#{msg['pages.user.profile.loginInfo.header']}</h3>
+				<h:panelGrid columns="2" columnClasses="colTitles, colValues" cellspacing="10px">
+					
+					<h:outputText value="#{msg['pages.user.profile.loginInfo.Login']}"/>
+					<h:outputText value="#{profileBean.user.login}" />
+
+					<h:outputText value="#{msg['pages.user.profile.loginInfo.Password']}" />
+					<a4j:outputPanel id="idChangePassword">
+						<a4j:outputPanel id="idPassChangeLink">
+							<h:commandLink value="#{msg['pages.user.profile.link.ClickToChange']}" onclick="showDiv();hideDiv(); return false;"/>
+						</a4j:outputPanel>
+							
+						<rich:panel id="passInputPanel" style="display:none;">
+							<a4j:outputPanel id="idPasswordSavePanel">
+								<p><h:outputLabel value="#{msg['pages.user.profile.loginInfo.EnterNewPasswd']}"
+									style="font-size:12px;" 
+									for="idInputPassword" /><br/>
+									<h:inputSecret value="#{profileBean.password}" 
+										id="idInputPassword" required="true"/>
+									<h:outputText value="*" styleClass="required_message" />
+									<rich:message for="idInputPassword" errorClass="error_message" ajaxRendered="true"/>
+								</p>
+								<p><h:outputLabel value="#{msg['pages.user.profile.loginInfo.RetypeNewPassword']}"
+									style="font-size:12px;" 
+									for="idInputRePassword" /><br/>
+									<h:inputSecret value="#{profileBean.rePassword}" 
+										id="idInputRePassword" required="true"/>
+									<h:outputText value="*" styleClass="required_message" />
+									<rich:message for="idInputRePassword" errorClass="error_message" ajaxRendered="true"/>
+								</p>
+								<p><a4j:commandButton value="#{msg['pages.user.profile.loginInfo.btn.UpdatePassword']}" 
+									action="#{profileBean.doUpdateUserPassword}" 
+									reRender="idPasswordSavePanel"/>
+								</p>
+							</a4j:outputPanel>
+						</rich:panel>
+						
+						<rich:effect name="showDiv"  for="passInputPanel" type="Appear" />
+						<rich:effect name="hideDiv"  for="idPassChangeLink" type="DropOut" />	
+						
+					</a4j:outputPanel>
+				</h:panelGrid>
+			</a4j:form>
+			
+			<rich:separator height="1" width="100%"/>
+			
+			<h:form>
+				<h3>#{msg['pages.user.profile.personalInfo.header']}</h3>
+				<h:panelGrid columns="2" columnClasses="colTitles, colValues" cellspacing="10px">
+					
+					<h:outputLabel value="#{msg['pages.singInToPresent.regForm.Email']}" for="idInputEmail" accesskey="E"/>
+					<a4j:outputPanel>
+						<h:inputText value="#{profileBean.user.email}" 
+							id="idInputEmail" accesskey="E"
+							style="width:50%; min-width:200px;" 
+							validator="validate.Email" />
+						<h:graphicImage value="/i/help.png" 
+							style="margin-left:8px;cursor: help" id="idEmailHelp">
+							<rich:toolTip for="idEmailHelp" direction="top-left">
+								<span style="white-space:nowrap; font-size:14px; font-family:Courier; font-weight: normal">
+									#{msg['pages.singInToPresent.regForm.Email.help1']}<br/>
+									#{msg['pages.singInToPresent.regForm.Email.help2']}<br/>
+									#{msg['pages.singInToPresent.regForm.Email.help3.1']}
+										<strong>#{msg['pages.singInToPresent.regForm.Email.help3.2']}</strong>
+										#{msg['pages.singInToPresent.regForm.Email.help3.3']}<br/>
+									#{msg['pages.singInToPresent.regForm.Email.help4.1']}
+										<strong>#{msg['pages.singInToPresent.regForm.Email.help4.2']}</strong><br/>
+									#{msg['pages.singInToPresent.regForm.Email.help5.1']}
+										<strong>#{msg['pages.singInToPresent.regForm.Email.help5.2']}</strong>.
+					            </span>
+							</rich:toolTip>
+						</h:graphicImage>
+						<rich:message for="idInputEmail" 
+							styleClass="error_message"
+							style="margin-left:8px;"
+							showSummary="true" showDetail="false" />
+					</a4j:outputPanel>
+					
+					<h:outputLabel value="#{msg['pages.user.profile.personalInfo.FullName']}" for="idInputFullName" accesskey="F"
+                    	rendered="#{userBean.vip}"/>
+					<h:inputText id="IdInputFullName"
+						value="#{profileBean.user.fullName}"
+						accesskey="F"
+						style="width:100%"
+						rendered="#{userBean.vip}"/>
+					
+					<h:outputLabel value="#{msg['pages.user.profile.personalInfo.Birthdate']}" for="idInputBirthDate" accesskey="B" 
+						rendered="#{userBean.vip}"/>
+					<rich:calendar id="idInputBirthDate" 
+						value="#{profileBean.user.birthDate.time}"
+                        popup="true"
+                        datePattern="dd MMMM yyyy"
+                        showApplyButton="false"
+                        inputClass="calendarInputUser" 
+                        cellWidth="24px" cellHeight="22px" style="width:200px"
+                        rendered="#{userBean.vip}"/>
+                        
+                    <h:outputLabel value="#{msg['pages.user.profile.personalInfo.Avatar']}" for="idInputAvatar" accesskey="A"
+                    	rendered="#{userBean.vip}"/>
+					<h:inputText id="IdInputAvatar"
+						value="#{profileBean.user.avatarUrl}"
+						accesskey="A"
+						style="width:100%"
+						rendered="#{userBean.vip}"/>
+						
+					<h:outputLabel value="#{msg['pages.user.profile.personalInfo.WelcomeMessage']}" for="idInputMessage" accesskey="W"
+						rendered="#{userBean.vip}"/>
+					<h:inputTextarea id="IdInputMessage"
+						value="#{profileBean.user.welcomeMessage}"
+						accesskey="W"
+						cols="10"
+						rows="10" 
+						rendered="#{userBean.vip}"/>
+				</h:panelGrid>
+				<rich:separator height="1" width="100%"/>
+				<p style="margin-left:120px;">
+					<h:commandButton style="width:100px;" value="#{msg['pages.user.profile.personalInfo.btn.Save']}"
+						action="#{profileBean.doUpdateUserInfo}"/>
+				</p>
+			</h:form>
+		</td>
+		<td valign="top" align="right">
+			<a4j:outputPanel id="idAvatarImg">
+				<h:graphicImage value="#{profileBean.user.avatarUrl}"
+					width="100px" alt="#{msg['pages.user.profile.personalInfo.NoAvatarMessage']}"
+					rendered="#{not empty profileBean.user.avatarUrl}" />
+			</a4j:outputPanel>
+		</td>
+		</tr></table>
+	</ui:define>
+</ui:composition>
+</html>

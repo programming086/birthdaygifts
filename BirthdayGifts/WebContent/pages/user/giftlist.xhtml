@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+	  xmlns:rich="http://richfaces.org/rich"
+	  xmlns:ts="http://birthdaygifts.yet.cn.ua"
+      xmlns:c="http://java.sun.com/jstl/core">
+
+<ui:composition template="/templates/regUser.xhtml">
+
+	<ui:define name="pageHeader">#{msg['pages.user.giftlist.header']}</ui:define>
+
+	<ui:define name="body">
+		<a4j:outputPanel id="idGiftList">
+			<a4j:form ajaxSubmit="false">
+				<p>
+					<h:commandLink 
+						value="#{msg['pages.user.giftlist.link.AddGift']}"
+						action="edit">
+						<a4j:actionparam name="editGiftId" value="0"
+							assignTo="#{giftSessionBean.giftId}" />
+					</h:commandLink>
+				</p>
+				<rich:dataTable width="100%" id="giftList"
+					value="#{giftBean.gifts}" var="gift" 
+					rowClasses="rows_edit_users">
+
+					<f:facet name="header">
+						<h:outputText value="#{msg['pages.user.giftlist.table.header']}" />
+					</f:facet>
+
+					<rich:column sortBy="#{gift.name}">
+						<f:facet name="header">
+							<h:outputText styleClass="headerText"
+								value="#{msg['pages.user.giftlist.table.Name']}" />
+						</f:facet>
+
+						<h:outputText>
+							<div style="font-weight:bold; text-align: center;">
+								#{gift.name}</div>
+						</h:outputText>
+					</rich:column>
+
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText styleClass="headerText"
+								value="#{msg['pages.user.giftlist.table.Image']}" />
+						</f:facet>
+
+						<h:graphicImage value="#{gift.imgUrl}"
+							width="100" alt="#{msg['pages.user.giftlist.table.Image.alt']}" />
+					</rich:column>
+
+					<rich:column sortBy="#{gift.url}">
+						<f:facet name="header">
+							<h:outputText styleClass="headerText"
+								value="#{msg['pages.user.giftlist.table.URL']}" />
+						</f:facet>
+						<h:outputLink value="#{gift.url}" target="blank">#{gift.url}</h:outputLink>
+					</rich:column>
+					
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText styleClass="headerText"
+								value="#{msg['pages.user.giftlist.table.Description']}" />
+						</f:facet>
+						<h:outputText value="#{gift.description}" escape="false"/>
+					</rich:column>
+
+					<rich:column sortBy="#{gift.dateAdd}">
+						<f:facet name="header">
+							<h:outputText styleClass="headerText"
+								value="#{msg['pages.user.giftlist.table.AddedOn']}" />
+						</f:facet>
+						<h:outputText value="#{gift.dateAdd}" converter="convert.Calendar">
+						</h:outputText>
+					</rich:column>
+
+					<rich:column style="width:20px;">
+						<h:commandLink
+							alt="#{msg['pages.user.giftlist.link.EditGift']}"
+							title="#{msg['pages.user.giftlist.link.EditGift']}"
+							action="edit" 
+							styleClass="image_link">
+							<h:graphicImage value="/i/edit.png" />
+							<a4j:actionparam name="editGiftId" id="editGiftId" 
+								value="#{gift.id}" assignTo="#{giftSessionBean.giftId}"/>
+						</h:commandLink>
+					</rich:column>
+					<rich:column style="width:20px;">	
+						 <h:graphicImage value="/i/delete.png" 
+						 	alt="#{msg['pages.user.giftlist.link.DeleteGift']}"
+						 	title="#{msg['pages.user.giftlist.link.DeleteGift']}"
+						 	style="cursor:pointer" id="idImgDel"
+						 	onclick="Richfaces.showModalPanel('mp', {param1: '#{gift.name}', param2: '#{gift.id}'});"/>
+					</rich:column>
+				</rich:dataTable>
+				<p>
+					<h:commandLink value="#{msg['pages.user.giftlist.link.AddGift']}"
+						action="edit">
+						<a4j:actionparam name="editGiftId" value="0"
+								assignTo="#{giftSessionBean.giftId}" />
+					</h:commandLink>
+				</p>
+			</a4j:form>
+		</a4j:outputPanel>
+
+		<rich:modalPanel id="mp" autosized="false" onshow="updateGiftId(event.parameters.param1, event.parameters.param2)">
+			<f:facet name="header">
+				<h:outputText value="#{msg['tpps.web.editUsers.delQuestionTitle']}" />
+			</f:facet>
+			<f:facet name="controls">
+				<h:graphicImage value="/i/cancel.png" style="cursor:pointer"
+					onclick="Richfaces.hideModalPanel('mp')" />
+			</f:facet>
+			<a4j:form id="idQueForm">
+				<p align="center">#{msg['pages.user.giftlist.DeleteQuestion']} #{giftBean.delGiftName}?<br/>
+				<rich:spacer height="5" />
+					<a4j:commandButton value="#{msg['tpps.web.editUsers.delQuestionYes']}"
+						action="#{giftBean.doDeleteGift}" reRender="idGiftList" id="idYes">
+						<a4j:actionparam name="uid" value="#{giftBean.delGiftId}" ajaxSingle="true" />
+						<rich:componentControl for="mp" attachTo="idYes" operation="hide" event="onclick"/>
+					</a4j:commandButton>
+				 	<rich:spacer width="20" />
+					<input type="button" value="#{msg['tpps.web.editUsers.delQuestionNo']}" 
+						onclick="Richfaces.hideModalPanel('mp'); return false;"/>
+				</p>
+			</a4j:form>
+		</rich:modalPanel>
+		
+		<a4j:form>
+	        <a4j:jsFunction name="updateGiftId" reRender="idQueForm">
+	            <a4j:actionparam name="param1" assignTo="#{giftBean.delGiftName}" />
+	            <a4j:actionparam name="param2" assignTo="#{giftBean.delGiftId}" />                  
+	        </a4j:jsFunction>
+	    </a4j:form> 
+		
+	</ui:define>
+</ui:composition>
+</html>

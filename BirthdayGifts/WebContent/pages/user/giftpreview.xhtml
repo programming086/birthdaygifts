@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+	  xmlns:rich="http://richfaces.org/rich"
+	  xmlns:ts="http://birthdaygifts.yet.cn.ua"
+      xmlns:c="http://java.sun.com/jstl/core">
+
+<ui:composition template="/templates/regUser.xhtml">
+
+	<ui:define name="pageHeader">#{msg['pages.user.giftpreview.header1']} <i>#{presenterBean.vipUser.fullName}</i> #{msg['pages.user.giftpreview.header2']}</ui:define>
+	
+	<ui:define name="body">
+		<rich:panel style="cursor:help" 
+			rendered="#{(presenterBean.vipUser.id == userBean.id) and (userBean.id != null)}">
+			<p>#{msg['pages.user.giftpreview.welcomeMessage.vip.1']}</p>
+			<p><b>#{msg['pages.user.giftpreview.welcomeMessage.vip.2']}</b></p>
+			<p>#{msg['pages.user.giftpreview.welcomeMessage.vip.3']}</p>
+		</rich:panel>
+	
+		<table width="100%" border="0" cellspacing="8">
+	    <tr>
+	    	<td valign="top" align="center" width="100px">
+	       		<h:graphicImage value="#{presenterBean.vipUser.avatarUrl}" 
+					rendered="#{not empty presenterBean.vipUser.avatarUrl}" 
+					height="100px" style="text-align:left;"/>
+					
+				<h:graphicImage value="/i/nopic_user.gif" 
+					rendered="#{empty presenterBean.vipUser.avatarUrl}" 
+					height="100px" style="text-align:left;"/>
+			</td>
+			<td valign="top">
+				<h:outputText value="#{presenterBean.vipUser.welcomeMessage}" escape="false"/>
+			</td>
+		</tr>
+		</table>
+
+		<rich:panel rendered="#{empty presenterBean.vipGifts}" style="cursor:help" >
+			#{msg['pages.user.giftpreview.noGiftsMessage']}
+		</rich:panel>
+
+		<h:form>
+			<a4j:outputPanel id="idGiftList">
+				<rich:dataGrid value="#{presenterBean.vipGifts}" 
+					var="gift" columns="1" width="100%">
+					<div>
+	                	<table width="100%" border="0" cellspacing="8">
+	                		<tr>
+	                			<td valign="top" align="center" width="200px">
+	                				<h:graphicImage value="#{gift.imgUrl}" alt="#{msg['pages.user.giftpreview.image.alt.GiftImage']}"
+	                					style="max-width:200px; max-height:200px;" rendered="#{not empty gift.imgUrl}"/>
+	                				<h:graphicImage value="/i/present_none.jpg" alt="#{msg['pages.user.giftpreview.image.alt.NoGiftImage']}"
+	                					rendered="#{empty gift.imgUrl}"/>
+	                			</td>
+	                			<td valign="top">
+	                				<p class="gift_title">#{gift.name}</p>
+				                	<div>
+				                		<h:outputLink value="#{gift.url}">#{gift.url}</h:outputLink>
+				                	</div>
+				                	<br/>
+	                				<h:outputText value="#{gift.description}" escape="false" />
+	                			</td>
+	                			<td valign="top" align="center" width="100px">
+	                				<a4j:outputPanel rendered="#{gift.owner.id != userBean.id}">
+		                				<h:commandLink action="#{presenterBean.doPresentGift}" 
+											immediate="true"
+											styleClass="image_link">
+											<f:param name="giftId" value="#{gift.id}"/>
+											<f:param name="vipId" value="#{presenterBean.vipUser.id}"/>
+											
+											<h:graphicImage value="/i/present.jpg" width="75%"/>
+										</h:commandLink><br/>
+		                				<h:commandLink action="#{presenterBean.doPresentGift}" 
+											value="#{msg['pages.user.giftpreview.link.PresentIt']}"
+		                					immediate="true">
+		                					<f:param name="giftId" value="#{gift.id}"/>
+		                					<f:param name="vipId" value="#{presenterBean.vipUser.id}"/>
+		                				</h:commandLink>
+	                				</a4j:outputPanel>
+	                			</td>
+	                		</tr>
+	                	</table>
+	                </div>
+	             </rich:dataGrid>
+			</a4j:outputPanel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

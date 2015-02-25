@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+	  xmlns:rich="http://richfaces.org/rich"
+	  xmlns:ts="http://birthdaygifts.yet.cn.ua"
+      xmlns:c="http://java.sun.com/jstl/core">
+
+<ui:composition template="/templates/common.xhtml">
+
+	<ui:define name="pageHeader">Привет Admin!</ui:define>
+	
+	<ui:define name="loginForm">
+		<div style="font-size:12px;">
+			<h:form ajaxSubmit="false">
+				<h:commandLink value="Logout" action="#{loginBean.doLogout}" style="font-size:12px; font-weight:bold"/>
+			</h:form>
+		</div>
+	</ui:define>
+	
+	<ui:define name="links">
+		<a4j:form>
+			<a4j:commandButton action="#{adminBean.doLoadUserList}" value="Update user list" />
+		</a4j:form>
+	</ui:define>
+
+	<ui:define name="body">
+		<a4j:outputPanel id="idUserList">
+			<h:form>
+				<rich:datascroller for="userList" align="left"
+					page="#{adminBean.usersPage}" id="sc1" />
+				<rich:spacer height="25" />
+				<rich:dataTable width="100%" id="userList" rows="10"
+					value="#{adminBean.users}" var="user"
+					rowClasses="rows_edit_users"
+					footerClass="rows_edit_users">
+
+					<f:facet name="header">
+						<h:outputText value="#{msg['tpps.web.editUsers.allUsers']}" />
+					</f:facet>
+
+					<rich:column sortBy="#{user.login}">
+						<f:facet name="header">
+							<h:outputText styleClass="headerText"
+								value="#{msg['tpps.web.editUsers.login']}" />
+						</f:facet>
+
+						<h:outputText value="#{user.login}"
+							rendered="#{adminBean.editUser != user}" />
+						<a4j:outputPanel rendered="#{adminBean.editUser == user}">
+							<h:inputText value="#{adminBean.editUser.login}"
+								id="idInputLogin" required="true" style="width:100px;" />
+							<h:outputText value="*" styleClass="required_message"
+								style="position:absolute;" />
+							<br />
+							<rich:message for="idInputLogin" errorClass="error_message" />
+						</a4j:outputPanel>
+
+						<f:facet name="footer">
+							<a4j:outputPanel rendered="#{adminBean.editUser == null}">
+								<h:inputText value="#{adminBean.newUser.login}"
+									id="idInputLoginAdd" required="true" style="width:100px;" />
+								<h:outputText value="*" styleClass="required_message"
+									style="position:absolute;" />
+								<br />
+								<rich:message for="idInputLoginAdd" errorClass="error_message" />
+							</a4j:outputPanel>
+						</f:facet>
+					</rich:column>
+
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText styleClass="headerText"
+								value="#{msg['tpps.web.editUsers.passwd']}" />
+						</f:facet>
+
+						<h:outputText value="#{user.password}"
+							rendered="#{adminBean.editUser != user}" />
+						<a4j:outputPanel rendered="#{adminBean.editUser == user}">
+							<h:inputText value="#{adminBean.editUser.password}"
+								id="idInputPasswd" required="true" style="width:100px;" />
+							<h:outputText value="*" styleClass="required_message"
+								style="position:absolute;" />
+							<br />
+							<rich:message for="idInputPasswd" errorClass="error_message" />
+						</a4j:outputPanel>
+
+						<f:facet name="footer">
+							<a4j:outputPanel rendered="#{adminBean.editUser == null}">
+								<h:inputText value="#{adminBean.newUser.password}"
+									id="idInputPasswdAdd" required="true" style="width:100px;" />
+								<h:outputText value="*" styleClass="required_message"
+									style="position:absolute;" />
+								<br />
+								<rich:message for="idInputPasswdAdd" errorClass="error_message" />
+							</a4j:outputPanel>
+						</f:facet>
+					</rich:column>
+
+					<rich:column sortBy="#{user.email}">
+						<f:facet name="header">
+							<h:outputText styleClass="headerText"
+								value="#{msg['tpps.web.editUsers.email']}" />
+						</f:facet>
+						<h:outputText value="#{user.email}"
+							rendered="#{adminBean.editUser != user}" />
+						<h:inputText value="#{adminBean.editUser.email}"
+							rendered="#{adminBean.editUser == user}" style="width:150px;"/>
+
+						<f:facet name="footer">
+							<h:inputText value="#{adminBean.newUser.email}"
+								rendered="#{adminBean.editUser == null}" style="width:150px;"/>
+						</f:facet>
+					</rich:column>
+					
+					<rich:column sortBy="#{user.fullName}">
+						<f:facet name="header">
+							<h:outputText styleClass="headerText"
+								value="Full name" />
+						</f:facet>
+						<h:outputText value="#{user.fullName}"
+							rendered="#{adminBean.editUser != user}" />
+						<h:inputText value="#{adminBean.editUser.fullName}"
+							rendered="#{adminBean.editUser == user}" style="width:150px;"/>
+
+						<f:facet name="footer">
+							<h:inputText value="#{adminBean.newUser.fullName}"
+								rendered="#{adminBean.editUser == null}" style="width:150px;"/>
+						</f:facet>
+					</rich:column>
+					
+					<rich:column sortBy="#{user.birthDate.time}" styleClass="cols_edit_bday">
+						<f:facet name="header">
+							<h:outputText styleClass="headerText"
+								value="Birth date" />
+						</f:facet>
+						<h:outputText value="#{user.birthDate}"
+							rendered="#{adminBean.editUser != user}" converter="convert.Calendar">
+						</h:outputText>
+						<rich:calendar value="#{adminBean.editUser.birthDate.time}"
+	                        locale="ru_RU"
+	                        popup="true"
+	                        datePattern="dd MMMM yyyy"
+	                        showApplyButton="false"
+	                        buttonClass="calendarButtonAdmin"
+	                        inputClass="calendarInputAdmin"
+	                        rendered="#{adminBean.editUser == user}"
+	                        cellWidth="24px" cellHeight="22px"/>
+
+						<f:facet name="footer">
+							<rich:calendar value="#{adminBean.newUser.birthDate.time}"
+		                        locale="ru_RU"
+		                        popup="true"
+		                        datePattern="dd MMMM yyyy"
+		                        showApplyButton="false"
+		                        buttonClass="calendarButtonAdmin"
+		                        inputClass="calendarInputAdmin"
+		                        rendered="#{adminBean.editUser == null}"
+		                        cellWidth="24px" cellHeight="22px"/>
+						</f:facet>
+					</rich:column>
+
+					<rich:column sortBy="#{user.role}">
+						<f:facet name="header">
+							<h:outputText styleClass="headerText"
+								value="#{msg['tpps.web.editUsers.role']}" />
+						</f:facet>
+						<h:outputText value="#{user.role}"
+							rendered="#{adminBean.editUser != user}">
+							<ts:convertUserRole />
+						</h:outputText>
+						<rich:comboBox value="#{adminBean.editUser.role}"
+							rendered="#{adminBean.editUser == user}"
+							suggestionValues="#{adminBean.roles}">
+							<ts:convertUserRole />
+						</rich:comboBox>
+
+						<f:facet name="footer">
+							<rich:comboBox value="#{adminBean.newUser.role}"
+								suggestionValues="#{adminBean.roles}"
+								enableManualInput="false"
+								rendered="#{adminBean.editUser == null}">
+								<ts:convertUserRole />
+							</rich:comboBox>
+						</f:facet>
+					</rich:column>
+
+					<rich:column style="width:20px;">
+						<a4j:commandButton image="/i/edit.png"
+							alt="#{msg['tpps.web.editUsers.altEditUser']}"
+							title="#{msg['tpps.web.editUsers.altEditUser']}"
+							rendered="#{adminBean.editUser != user}"
+							reRender="idUserList" action="#{adminBean.doSetEditUser}"
+							ajaxSingle="true">
+							<a4j:actionparam name="uid" value="#{user.id}" />
+						</a4j:commandButton>
+						<a4j:commandButton image="/i/save.png"
+							alt="#{msg['tpps.web.editUsers.altSaveEditUser']}"
+							title="#{msg['tpps.web.editUsers.altSaveEditUser']}"
+							rendered="#{adminBean.editUser == user}"
+							reRender="idUserList" action="#{adminBean.doUpdateUser}">
+							<a4j:actionparam name="uid" value="#{user.id}" />
+						</a4j:commandButton>
+
+						<f:facet name="footer">
+							<a4j:commandButton image="/i/add.gif"
+								alt="#{msg['tpps.web.editUsers.altAddUser']}"
+								rendered="#{adminBean.editUser == null}"
+								reRender="idUserList" action="#{adminBean.doAddUser}">
+							</a4j:commandButton>
+						</f:facet>
+					</rich:column>
+					<rich:column style="width:20px;">
+						
+						 <h:graphicImage value="/i/delete.png" 
+						 	alt="#{msg['tpps.web.editUsers.altDeleteUser']}"
+						 	title="#{msg['tpps.web.editUsers.altDeleteUser']}"
+						 	rendered="#{adminBean.editUser != user}"
+						 	style="cursor:pointer" id="idImgDel"
+						 	onclick="Richfaces.showModalPanel('mp', {param1: '#{user.login}', param2: '#{user.id}'});"/>
+						
+						<a4j:commandButton image="/i/cancel.png"
+							alt="#{msg['tpps.web.editUsers.altCancelEditUser']}"
+							title="#{msg['tpps.web.editUsers.altCancelEditUser']}"
+							rendered="#{adminBean.editUser == user}"
+							reRender="idUserList"
+							action="#{adminBean.doCancelEditUser}" ajaxSingle="true">
+						</a4j:commandButton>
+					</rich:column>
+				</rich:dataTable>
+			</h:form>
+		</a4j:outputPanel>
+
+		<rich:modalPanel id="mp" autosized="false" onshow="updateUserId(event.parameters.param1, event.parameters.param2)">
+			<f:facet name="header">
+				<h:outputText value="#{msg['tpps.web.editUsers.delQuestionTitle']}" />
+			</f:facet>
+			<f:facet name="controls">
+				<h:graphicImage value="/i/cancel.png" style="cursor:pointer"
+					onclick="Richfaces.hideModalPanel('mp')" />
+			</f:facet>
+			<a4j:form id="idQueForm">
+				<p align="center">#{msg['tpps.web.editUsers.delQuestionBody']} #{adminBean.newUser.login}?<br/>
+				<rich:spacer height="5" />
+					<a4j:commandButton value="#{msg['tpps.web.editUsers.delQuestionYes']}"
+						action="#{adminBean.doDeleteUser}" reRender="idUserList" id="idYes">
+						<a4j:actionparam name="uid" value="#{adminBean.newUser.id}" ajaxSingle="true" />
+						<rich:componentControl for="mp" attachTo="idYes" operation="hide" event="onclick"/>
+					</a4j:commandButton>
+					 <rich:spacer width="20" />
+					<input type="button" value="#{msg['tpps.web.editUsers.delQuestionNo']}" 
+						onclick="Richfaces.hideModalPanel('mp'); return false;"/>
+				</p>
+			</a4j:form>
+		</rich:modalPanel>
+		
+		<a4j:form>
+	        <a4j:jsFunction name="updateUserId" reRender="idQueForm">
+	            <a4j:actionparam name="param1" assignTo="#{adminBean.newUser.login}" />
+	            <a4j:actionparam name="param2" assignTo="#{adminBean.newUser.id}" />                  
+	        </a4j:jsFunction>
+	    </a4j:form> 
+		
+	</ui:define>
+</ui:composition>
+</html>

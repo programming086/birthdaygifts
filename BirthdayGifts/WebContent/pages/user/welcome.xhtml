@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+	  xmlns:rich="http://richfaces.org/rich"
+	  xmlns:ts="http://birthdaygifts.yet.cn.ua"
+      xmlns:c="http://java.sun.com/jstl/core">
+
+<ui:composition template="/templates/regUser.xhtml">
+
+	<ui:define name="pageHeader">#{msg['pages.user.welcome.header']} #{userBean.login}!</ui:define>
+
+	<ui:define name="body">
+	
+		<a4j:outputPanel rendered="#{userBean.vip}">
+			<rich:panel id="idInfoFromSiteVip" style="cursor:help">
+				<f:facet name="header">#{msg['pages.user.welcome.welcomeMessage.title']}</f:facet>
+				<p>#{msg['pages.user.welcome.welcomeMessage.body1']}</p>
+				<p>#{msg['pages.user.welcome.welcomeMessage.body2']}</p>
+				<p>#{msg['pages.user.welcome.welcomeMessage.body3']}</p>
+			</rich:panel>
+			<br/>
+			<rich:panel style="cursor:help" >
+				#{msg['pages.user.welcome.messageAboutWelcomeMessage']}
+			</rich:panel>
+			<br/>
+			<div>
+				<h:outputText value="#{profileBean.user.welcomeMessage}" escape="false"/>
+			</div>
+			
+		</a4j:outputPanel>
+		
+		<a4j:outputPanel rendered="#{!userBean.vip}">
+			<rich:panel id="idInfoFromSitePresenter" style="cursor:help">
+				<f:facet name="header">#{msg['pages.user.welcome.welcomeMessage.title']}</f:facet>
+				<p>#{msg['pages.user.welcome.welcomeMessage.body1.presenter']}</p>
+				<p>#{msg['pages.user.welcome.welcomeMessage.body2']}</p>
+				<p>#{msg['pages.user.welcome.welcomeMessage.body3.presenter']}</p>
+			</rich:panel>
+		</a4j:outputPanel>
+		
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE facelet-taglib PUBLIC
+  "-//Sun Microsystems, Inc.//DTD Facelet Taglib 1.0//EN"
+  "http://java.sun.com/dtd/facelet-taglib_1_0.dtd">
+
+<facelet-taglib>
+
+	<!-- Specifying namespace that will be used in xhtml files -->
+	<namespace>http://birthdaygifts.yet.cn.ua</namespace>
+	
+	<!-- Specifying our own convertor for enum types. It still needs registering in faces-config.xml -->
+	<tag>
+		<tag-name>convertUserRole</tag-name>
+		<converter>
+			<converter-id>convert.UserRole</converter-id>
+		</converter>
+	</tag>
+	
+	<tag>
+		<tag-name>validateEmail</tag-name>
+		<validator>
+			<validator-id>validate.Email</validator-id>
+		</validator>
+	</tag>
+
+</facelet-taglib>
